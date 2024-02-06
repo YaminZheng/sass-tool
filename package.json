@@ -12,6 +12,7 @@
   },
   "keywords": [
     "sass",
+    "runtime",
     "tool",
     "lib"
   ],
@@ -19,9 +20,7 @@
     "url": "https://github.com/YaminZheng/sass-tool.git"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "dev": "vite"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
