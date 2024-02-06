@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "sass:math";
+@use "./functions.scss" as *;
+
+// Color
+$colors: () !default;
+$color-count: 3 !default;
+
+$colors: map.deep-merge(
+  (
+    "white": #ffffff,
+    "black": #000000,
+    "safety": #67c23a,
+    "warning": #e6a23c,
+    "danger": #f56c6c,
+  ),
+  $colors
+);
+
+@mixin extend-color($name, $color, $number) {
+  $colors: map.deep-merge(
+    (
+      "#{$name}-lighten-#{$number}":
+        toLighten($color, math.percentage(math.div($number, 10))),
+      "#{$name}-darken-#{$number}":
+        toDarken($color, math.percentage(math.div($number, 10))),
+    ),
+    $colors
+  ) !global;
+}
+
+@each $name, $value in $colors {
+  @for $i from 1 through $color-count {
+    @include extend-color($name, $value, $i);
+  }
+}
+
+// Break point
+$breakpoints: (
+  "sm": 768px,
+  "md": 960px,
+  "lg": 1240px,
+  "xl": 1920px,
+) !default;
+
+$breakpoints-spec: (
+  "xs-only": max-width(map.get($breakpoints, sm)),
+  "sm-and-up": min-width(map.get($breakpoints, sm)),
+  "sm-only": only-width(map.get($breakpoints, sm), map.get($breakpoints, md)),
+  "sm-and-down": max-width(map.get($breakpoints, md)),
+  "md-and-up": min-width(map.get($breakpoints, md)),
+  "md-only": only-width(map.get($breakpoints, md), map.get($breakpoints, lg)),
+  "md-and-down": max-width(map.get($breakpoints, lg)),
+  "lg-and-up": min-width(map.get($breakpoints, lg)),
+  "lg-only": only-width(map.get($breakpoints, lg), map.get($breakpoints, xl)),
+  "lg-and-down": max-width(map.get($breakpoints, xl)),
+  "xl-only": min-width(map.get($breakpoints, xl)),
+) !default;

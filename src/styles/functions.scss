@@ -1,0 +1,35 @@
+@function toLighten($color, $lighten) {
+  @return scale-color(
+    $color,
+    $red: $lighten,
+    $green: $lighten,
+    $blue: $lighten
+  );
+}
+
+@function toDarken($color, $lighten) {
+  @return scale-color(
+    $color,
+    $red: -$lighten,
+    $green: -$lighten,
+    $blue: -$lighten
+  );
+}
+
+@function min-width($size) {
+  @return "(min-width: #{$size})";
+}
+
+@function max-width($size) {
+  @return "(max-width: #{$size - 1})";
+}
+
+@function only-width($min, $max) {
+  @if ($min == null) {
+    @return max-width($max);
+  } @else if ($max == null) {
+    @return min-width($max);
+  } @else {
+    @return "(min-width: #{$min}) and (max-width: #{$max - 1})";
+  }
+}

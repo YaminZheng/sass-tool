@@ -1,0 +1,76 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "./var.scss" as var;
+
+@mixin media($breakpoint) {
+  $bs: map-get(var.$breakpoints-spec, $breakpoint);
+
+  @if content-exists() {
+    @if $bs {
+      @media screen and #{$bs} {
+        @content;
+      }
+    } @else {
+      @media screen and (#{$breakpoint}) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin width($min, $sm: null, $md: null, $lg: null, $xl: null) {
+  width: $min;
+
+  @if $sm {
+    @media screen and (min-width: map-get(var.$breakpoints, sm)) {
+      width: $sm;
+    }
+  }
+
+  @if $md {
+    @media screen and (min-width: map-get(var.$breakpoints, md)) {
+      width: $md;
+    }
+  }
+
+  @if $lg {
+    @media screen and (min-width: map-get(var.$breakpoints, lg)) {
+      width: $lg;
+    }
+  }
+
+  @if $xl {
+    @media screen and (min-width: map-get(var.$breakpoints, xl)) {
+      width: $xl;
+    }
+  }
+}
+
+@mixin height($min, $sm: null, $md: null, $lg: null, $xl: null) {
+  height: $min;
+
+  @if $sm {
+    @media screen and (min-width: map-get(var.$breakpoints, sm)) {
+      height: $sm;
+    }
+  }
+
+  @if $md {
+    @media screen and (min-width: map-get(var.$breakpoints, md)) {
+      height: $md;
+    }
+  }
+
+  @if $lg {
+    @media screen and (min-width: map-get(var.$breakpoints, lg)) {
+      height: $lg;
+    }
+  }
+
+  @if $xl {
+    @media screen and (min-width: map-get(var.$breakpoints, xl)) {
+      height: $xl;
+    }
+  }
+}
