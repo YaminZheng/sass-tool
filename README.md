@@ -12,6 +12,15 @@ yarn add sass-runtime-tool -D
 npm i -D sass-runtime-tool
 ```
 
+## 项目演示
+
+```bash
+git clone https://github.com/YaminZheng/sass-tool.git
+cd sass-tool
+yarn install
+yarn dev
+```
+
 ## 使用
 
 ```scss
@@ -83,7 +92,7 @@ export default defineConfig({
 </style>
 ```
 
-## 事例
+## 详情
 
 #### media
 
@@ -179,6 +188,4 @@ $breakpoints-spec: (
   ),
   $breakpoints: ("sm": 640px, "md": 768px, "lg": 1024px, "xl": 1240px)
 );
-@use "../styles/mixins.scss";
-@use "../styles/functions.scss";
 ```

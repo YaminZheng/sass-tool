@@ -1,6 +1,6 @@
 {
   "name": "sass-runtime-tool",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "type": "module",
   "files": [
     "./src/styles"
