@@ -1,15 +1,14 @@
 {
-  "name": "sass-tool",
-  "version": "0.0.1",
+  "name": "sass-runtime-tool",
+  "version": "0.0.3",
   "type": "module",
   "files": [
-    "src/styles"
+    "./src/styles"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/main.js",
-      "require": "./dist/main.cjs.js"
-    }
+    "./functions.scss": "./src/styles/functions.scss",
+    "./mixins.scss": "./src/styles/mixins.scss",
+    "./var.scss": "./src/styles/var.scss"
   },
   "keywords": [
     "sass",
@@ -17,7 +16,7 @@
     "lib"
   ],
   "repository": {
-    "url": "https://github.com/YaminZheng/onboard-vue-hooks.git"
+    "url": "https://github.com/YaminZheng/sass-tool.git"
   },
   "scripts": {
     "dev": "vite",
@@ -25,11 +24,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vue": "^3.3.11",
     "@vitejs/plugin-vue": "^4.5.2",
     "sass": "^1.70.0",
+    "sass-runtime-tool": "^0.0.3",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
+    "vue": "^3.3.11",
     "vue-tsc": "^1.8.25"
   },
   "license": "MIT"

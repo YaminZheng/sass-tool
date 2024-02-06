@@ -1,19 +1,22 @@
 # Sass tool
 
 _自己平常会经常使用的一些方法和变量，希望可以帮到你们_
+
 _主要是针对，响应式、主题切换「亮色、暗色等等」做的一个简单的工具集_
+
+## 安装
+
+```bash
+yarn add sass-runtime-tool -D
+```
 
 ## 使用
 
 ```scss
-// /src/global.scss
-@forward "../styles/var.scss";
-@forward "../styles/mixins.scss";
-@forward "../styles/functions.scss";
-```
-
-```scss
-@use "/src/global.scss";
+// app.scss
+@use "sass-runtime-tool/var.scss";
+@use "sass-runtime-tool/mixins.scss";
+@use "sass-runtime-tool/functions.scss";
 
 .content {
   background-color: map-get($colors, safety);

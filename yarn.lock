@@ -561,6 +561,11 @@ rollup@^4.2.0:
     "@rollup/rollup-win32-x64-msvc" "4.9.6"
     fsevents "~2.3.2"
 
+sass-runtime-tool@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/sass-runtime-tool/-/sass-runtime-tool-0.0.3.tgz#dd3bbf7ece767a31450e56cbd7b9280dd561cf3b"
+  integrity sha512-tNVU9zgpvDeZACpSFGGOok7ACeoGZsHmdUCVOSF/ECu8CXiqSPi7WHS5DClYdp9DSkIUvl20ngyRzBkbsysr1Q==
+
 sass@^1.70.0:
   version "1.70.0"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.70.0.tgz#761197419d97b5358cb25f9dd38c176a8a270a75"
