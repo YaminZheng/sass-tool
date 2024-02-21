@@ -1,6 +1,23 @@
 # Sass tool
 
-_自己平常会经常使用的一些方法和变量_
+---
+
+[![npm (tag)](https://img.shields.io/npm/v/sass-runtime-tool)](https://www.npmjs.com/package/sass-runtime-tool)
+![npm (downloads)](https://img.shields.io/npm/dm/sass-runtime-tool)
+
+---
+
+Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代码量！
+
+**功能特点**
+
+- 简化 css 的编写
+- 统一全局 breakpoint 使用
+- 与 unocss 一致的 rem 转化
+- 小三角快速实现
+- 输入框 placeholder 样式更改
+- 多行文本省略号显示
+- 无污染安全的 sass 运行时工具集
 
 ## 安装
 
@@ -71,6 +88,19 @@ export default defineConfig({
       background-color: map-get($colors, danger-lighten-1);
       background-image: unset;
     }
+  }
+</style>
+```
+
+```html
+<!-- 与 unocss 一起使用 -->
+<body>
+  <div>Content</div>
+</body>
+
+<style lang="scss">
+  div {
+    font-size: 20; // 5rem
   }
 </style>
 ```
@@ -252,6 +282,7 @@ $breakpoints-spec: (
     // 覆盖颜色
     safety: green
   ),
-  $breakpoints: ("sm": 640px, "md": 768px, "lg": 1024px, "xl": 1240px)
+  $breakpoints: ("sm": 640px, "md": 768px, "lg": 1024px, "xl": 1240px),
+  $rem-base: 4 // unocss [20 => 5rem, 10 => 2.5rem]
 );
 ```
