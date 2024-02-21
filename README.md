@@ -1,8 +1,6 @@
 # Sass tool
 
-_自己平常会经常使用的一些方法和变量，希望可以帮到你们_
-
-_主要是针对，响应式、主题切换「亮色、暗色等等」做的一个简单的工具集_
+_自己平常会经常使用的一些方法和变量_
 
 ## 安装
 
@@ -12,31 +10,17 @@ yarn add sass-runtime-tool -D
 npm i -D sass-runtime-tool
 ```
 
-## 项目演示
-
-```bash
-git clone https://github.com/YaminZheng/sass-tool.git
-cd sass-tool
-yarn install
-yarn dev
-```
-
 ## 使用
 
 ```scss
-// app.scss
-@use "sass-runtime-tool/var.scss";
-@use "sass-runtime-tool/mixins.scss";
-@use "sass-runtime-tool/functions.scss";
+@use "sass-runtime-tool/all.scss";
 ```
 
-**建议全局使用**
+**vite 全局使用**
 
 ```scss
-// src/assets/global.scss
-@forward "sass-runtime-tool/var.scss";
-@forward "sass-runtime-tool/mixins.scss";
-@forward "sass-runtime-tool/functions.scss";
+// 创建 src/assets/global.scss
+@forward "sass-runtime-tool/all.scss";
 ```
 
 ```typescript
@@ -54,41 +38,123 @@ export default defineConfig({
 });
 ```
 
-```vue
-<!-- App.vue -->
-<template>
+```html
+<!-- 响应式 -->
+<body>
   <div class="box">box</div>
-</template>
+</body>
 
-<style lang="scss" scoped>
-.box {
-  background-image: linear-gradient(
-    to right,
-    toLighten(pink, 50%),
-    toDarken(pink, 50%)
-  );
-  border: 1p solid map-get($colors, safety-lighten-1);
+<style lang="scss">
+  .box {
+    height: 10px;
+    background-image: linear-gradient(
+      to right,
+      toLighten(pink, 50%),
+      toDarken(pink, 50%)
+    );
+    border: 2px solid map-get($colors, safety-lighten-1);
 
-  @include media("md-and-down") {
-    width: 50vw;
+    @include media("md-and-down") {
+      width: 50vw;
+    }
+
+    @include media("xs-only") {
+      background-color: map-get($colors, danger);
+      background-image: unset;
+    }
+
+    @media screen and (max-width(768px)) {
+      opacity: 0.5;
+    }
+
+    @include media(only-width(768px, 960px)) {
+      background-color: map-get($colors, danger-lighten-1);
+      background-image: unset;
+    }
   }
+</style>
+```
 
-  @include media("sm-and-down") {
-    background-color: map-get($colors, warning);
-  }
+```html
+<!-- 改变 placeholder 的颜色和大小 -->
+<body>
+  <input class="input" placeholder="Please enter content" />
+</body>
 
-  @include media("xs-only") {
-    background-color: map-get($colors, danger);
+<style lang="scss">
+  .input {
+    @include placeholder(red) {
+      // 或者直接在下边写
+      // color: red;
+      font-size: 12px;
+    }
   }
+</style>
+```
 
-  @media screen and (max-width(768px)) {
-    opacity: 0.5;
-  }
+```html
+<!-- 制作三角形 -->
+<body>
+  <div class="triangle">
+    <div class="triangle-2"></div>
+  </div>
+</body>
 
-  @include media(only-width(768px, 960px)) {
-    background-color: map-get($colors, danger-lighten-1);
+<style lang="scss">
+  .triangle {
+    &::before {
+      content: "";
+      display: inline-block;
+      @include triangle();
+    }
+    &::after {
+      content: "";
+      display: inline-block;
+      @include triangle("left", 26px, green);
+    }
   }
-}
+  .triangle-2 {
+    @include triangle("bottom", 6px, blue);
+  }
+</style>
+```
+
+```html
+<body>
+  <div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
+  <div class="ellipsis">
+    多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
+  </div>
+</body>
+
+<style lang="scss">
+  .ellipsis {
+    width: 100px;
+    @include ellipsis(3);
+  }
+  .ellipsis-2 {
+    width: 100px;
+    @include ellipsis();
+  }
+</style>
+```
+
+```html
+<body>
+  <ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+</body>
+
+<style lang="scss">
+  .list {
+    @include items-center();
+    // 或者你需要某个断点响应
+    @include row-to-col("md-and-down");
+    align-items: center;
+  }
 </style>
 ```
 

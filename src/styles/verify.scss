@@ -1,0 +1,71 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "./vars.scss" as vars;
+
+$common_values: unset inherit initial revert revert-layer;
+$directions: "left" "right" "top" "bottom";
+
+@function is_common_value($value) {
+  @each $v in $common_values {
+    @if $value == $v {
+      @return true;
+    }
+  }
+  @return false;
+}
+
+@function valid_number($number, $canNull: false) {
+  @if meta.type-of($number) !=
+    "number" and
+    (not $canNull or $number != null) and not
+    is_common_value($number)
+  {
+    @debug "--- valid_number ---";
+    @error "无效的 number: #{$number}";
+    @return null;
+  }
+  @return $number;
+}
+
+@function valid_numbers($numbers, $canNull: false) {
+  @each $num in $numbers {
+    $_num: valid_number($num, $canNull);
+    @if $_num == null {
+      @return null;
+    }
+  }
+  @return $numbers;
+}
+
+@function valid_string($string, $canNull) {
+  @if meta.type-of($string) !=
+    "string" and
+    (not $canNull or $string != null) and not
+    is_common_value($number)
+  {
+    @debug "--- valid_string ---";
+    @error "无效的 string: #{$string}";
+    @return null;
+  }
+  @return $string;
+}
+
+@function valid_strings($strings, $canNull: false) {
+  @each $str in $strings {
+    $_str: valid_string($str, $canNull);
+    @if $_str == null {
+      @return null;
+    }
+  }
+  @return $strings;
+}
+
+@function valid_direction($direction) {
+  @each $d in $directions {
+    @if $direction == $d {
+      @return $direction;
+    }
+  }
+  @return null;
+}

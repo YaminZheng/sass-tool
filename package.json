@@ -1,14 +1,15 @@
 {
   "name": "sass-runtime-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "files": [
     "./src/styles"
   ],
   "exports": {
+    "./all.scss": "./src/styles/all.scss",
     "./functions.scss": "./src/styles/functions.scss",
     "./mixins.scss": "./src/styles/mixins.scss",
-    "./var.scss": "./src/styles/var.scss"
+    "./vars.scss": "./src/styles/vars.scss"
   },
   "keywords": [
     "sass",
@@ -20,12 +21,16 @@
     "url": "https://github.com/YaminZheng/sass-tool.git"
   },
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "test": "sass-migrator module --verbose --migrate-deps --dry-run src/styles/all.scss"
   },
   "devDependencies": {
+    "@types/node": "^20.11.16",
     "@vitejs/plugin-vue": "^4.5.2",
     "sass": "^1.70.0",
+    "sass-migrator": "^2.0.2",
     "sass-runtime-tool": "^0.0.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vue": "^3.3.11",

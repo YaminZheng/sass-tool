@@ -1,14 +1,17 @@
 @use "sass:map";
 @use "sass:meta";
 @use "sass:list";
-@use "./var.scss" as var;
+@use "sass:math";
+@use "./vars.scss" as vars;
+@use "./functions.scss" as functions;
+@use "./verify.scss" as verify;
 
 @mixin media($breakpoint) {
-  $bs: map-get(var.$breakpoints-spec, $breakpoint);
+  $_breakpoint: map-get(vars.$breakpoints-spec, $breakpoint);
 
   @if content-exists() {
-    @if $bs {
-      @media screen and #{$bs} {
+    @if $_breakpoint {
+      @media screen and #{$_breakpoint} {
         @content;
       }
     } @else {
@@ -19,58 +22,193 @@
   }
 }
 
-@mixin width($min, $sm: null, $md: null, $lg: null, $xl: null) {
+@mixin width($min: 100%, $sm: null, $md: null, $lg: null, $xl: null) {
   width: $min;
 
   @if $sm {
-    @media screen and (min-width: map-get(var.$breakpoints, sm)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, sm)) {
       width: $sm;
     }
   }
 
   @if $md {
-    @media screen and (min-width: map-get(var.$breakpoints, md)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, md)) {
       width: $md;
     }
   }
 
   @if $lg {
-    @media screen and (min-width: map-get(var.$breakpoints, lg)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, lg)) {
       width: $lg;
     }
   }
 
   @if $xl {
-    @media screen and (min-width: map-get(var.$breakpoints, xl)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, xl)) {
       width: $xl;
     }
   }
 }
 
-@mixin height($min, $sm: null, $md: null, $lg: null, $xl: null) {
+@mixin height($min: unset, $sm: null, $md: null, $lg: null, $xl: null) {
   height: $min;
 
   @if $sm {
-    @media screen and (min-width: map-get(var.$breakpoints, sm)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, sm)) {
       height: $sm;
     }
   }
 
   @if $md {
-    @media screen and (min-width: map-get(var.$breakpoints, md)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, md)) {
       height: $md;
     }
   }
 
   @if $lg {
-    @media screen and (min-width: map-get(var.$breakpoints, lg)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, lg)) {
       height: $lg;
     }
   }
 
   @if $xl {
-    @media screen and (min-width: map-get(var.$breakpoints, xl)) {
+    @media screen and (min-width: map-get(vars.$breakpoints, xl)) {
       height: $xl;
     }
+  }
+}
+
+@mixin items-center($gap: null) {
+  $_gap: verify.valid_numbers($gap, true);
+
+  display: flex;
+  align-items: center;
+  @if $_gap {
+    gap: functions.values($_gap);
+  }
+}
+
+@mixin justify-center($gap: null) {
+  $_gap: verify.valid_numbers($gap, true);
+
+  display: flex;
+  justify-content: center;
+  @if $_gap {
+    gap: functions.values($_gap);
+  }
+}
+
+@mixin flex-center($gap: null) {
+  $_gap: verify.valid_numbers($gap, true);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @if $_gap {
+    gap: functions.values($_gap);
+  }
+}
+
+@mixin image-center($img: null) {
+  $_img: verify.valid_strings($img, true);
+
+  @if $_img {
+    background-image: $_img;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@mixin square($width: null) {
+  $_width: verify.valid_number($width, true);
+
+  @if $_width {
+    width: functions.unitless-to-rem($_width);
+  }
+  aspect-ratio: 1/1;
+}
+
+@mixin ellipsis($col: null) {
+  $_col: verify.valid_number($col, true);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $_col {
+    display: -webkit-box;
+    -webkit-line-clamp: #{$col};
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  } @else {
+    white-space: nowrap;
+  }
+}
+
+@mixin container($base: 1200px) {
+  margin: auto;
+  box-sizing: border-box;
+  @include width(100%, min(96%, $base));
+  @include media("xs-only") {
+    padding: 0 10px;
+  }
+}
+
+@mixin row-to-col($tap: "xs-only") {
+  display: flex;
+
+  @include media($tap) {
+    flex-direction: column;
+  }
+}
+
+@mixin col-to-row($tap: "xs-only") {
+  display: flex;
+  flex-direction: column;
+
+  @include media($tap) {
+    flex-direction: row;
+  }
+}
+
+@mixin triangle($direction: "right", $width: 5px, $color: #000) {
+  $_width: verify.valid_number($width);
+  $_direction: verify.valid_direction($direction);
+  background-color: $color;
+
+  @if $_direction == "left" {
+    width: $_width;
+    height: $_width * 2;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  } @else if $_direction == "top" {
+    width: $_width * 2;
+    height: $_width * 2;
+    clip-path: polygon(0 75%, 50% 25%, 100% 75%);
+  } @else if $_direction == "bottom" {
+    width: $_width * 2;
+    height: $_width * 2;
+    clip-path: polygon(0 25%, 50% 75%, 100% 25%);
+  } @else {
+    // default right
+    width: $_width;
+    height: $_width * 2;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+}
+
+@mixin placeholder($color: null) {
+  &::placeholder {
+    @if $color {
+      color: $color;
+    }
+    opacity: 1; /* Firefox */
+    @content;
+  }
+
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    @if $color {
+      color: $color;
+    }
+    @content;
   }
 }

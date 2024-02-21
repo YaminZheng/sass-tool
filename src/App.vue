@@ -1,98 +1,86 @@
 <template>
-  <div class="container">
-    <div class="box box-1">
-      <div class="li li-1">safety-lighten-1</div>
-      <div class="li li-2">safety-lighten-2</div>
-      <div class="li li-3">safety-lighten-3</div>
-    </div>
-    <div class="box box-2">
-      <div class="li li-1">safety-darken-1</div>
-      <div class="li li-2">safety-darken-2</div>
-      <div class="li li-3">safety-darken-3</div>
-    </div>
+  <div class="box"></div>
+  <input class="input" placeholder="Please enter content" />
+  <div class="triangle">
+    <div class="triangle-2"></div>
   </div>
+  <div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
+  <div class="ellipsis">
+    多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
+  </div>
+  <ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
 </template>
 
-<style lang="scss">
-body {
+<style lang="scss" scoped>
+.box {
+  height: 10px;
   background-image: linear-gradient(
     to right,
     toLighten(pink, 50%),
     toDarken(pink, 50%)
   );
-}
-</style>
-
-<style lang="scss" scoped>
-.box {
-  height: 48vh;
-  font-size: 16px;
-
-  .li {
-    height: 30%;
-
-    + .li {
-      margin-top: 1%;
-    }
-  }
-
-  + .box {
-    margin-top: 2vh;
-  }
-}
-
-.box-1 {
-  background-color: map-get($colors, safety);
+  border: 2px solid map-get($colors, safety-lighten-1);
 
   @include media("md-and-down") {
     width: 50vw;
   }
 
-  @include media("sm-and-down") {
-    background-color: map-get($colors, warning);
-  }
-
   @include media("xs-only") {
     background-color: map-get($colors, danger);
+    background-image: unset;
   }
 
-  .li-1 {
-    background-color: map-get($colors, "safety-lighten-1");
+  @media screen and (max-width(768px)) {
+    opacity: 0.5;
   }
-  .li-2 {
-    background-color: map-get($colors, "safety-lighten-2");
-  }
-  .li-3 {
-    background-color: map-get($colors, "safety-lighten-3");
+
+  @include media(only-width(768px, 960px)) {
+    background-color: map-get($colors, danger-lighten-1);
+    background-image: unset;
   }
 }
 
-.box-2 {
-  background-color: map-get($colors, safety);
-
-  // @include width(100%, 80%, 70%, 60%, 50%); // === @include width(100%, $sm: 80%, $md: 70%, $lg: 60%, $xl: 50%);
-  @include width(100%, $md: 50%);
-
-  .li-1 {
-    background-color: map-get($colors, "safety-darken-1");
-
-    @media screen and (max-width(960px)) {
-      opacity: 0.3;
-    }
+.input {
+  @include placeholder(red) {
+    // 或者直接在下边写
+    // color: red;
+    font-size: 12px;
   }
-  .li-2 {
-    background-color: map-get($colors, "safety-darken-2");
+}
 
-    @include media(max-width(768px)) {
-      opacity: 0.3;
-    }
+.triangle {
+  &::before {
+    content: "";
+    display: inline-block;
+    @include triangle();
   }
-  .li-3 {
-    background-color: map-get($colors, "safety-darken-3");
+  &::after {
+    content: "";
+    display: inline-block;
+    @include triangle("left", 26px, green);
+  }
+}
 
-    @include media(only-width(768px, 960px)) {
-      opacity: 0.5;
-    }
-  }
+.triangle-2 {
+  @include triangle("bottom", 6px, blue);
+}
+.ellipsis {
+  width: 100px;
+  @include ellipsis(3);
+}
+.ellipsis-2 {
+  width: 100px;
+  @include ellipsis();
+}
+
+.list {
+  @include items-center();
+  // 或者你需要某个断点响应
+  @include row-to-col("md-and-down");
+  align-items: center;
 }
 </style>

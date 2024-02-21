@@ -1,6 +1,5 @@
 @use "sass:map";
 @use "sass:math";
-@use "./functions.scss" as *;
 
 // Color
 $colors: () !default;
@@ -16,6 +15,24 @@ $colors: map.deep-merge(
   ),
   $colors
 );
+
+@function toLighten($color, $lighten) {
+  @return scale-color(
+    $color,
+    $red: $lighten,
+    $green: $lighten,
+    $blue: $lighten
+  );
+}
+
+@function toDarken($color, $lighten) {
+  @return scale-color(
+    $color,
+    $red: -$lighten,
+    $green: -$lighten,
+    $blue: -$lighten
+  );
+}
 
 @mixin extend-color($name, $color, $number) {
   $colors: map.deep-merge(
@@ -43,6 +60,24 @@ $breakpoints: (
   "xl": 1920px,
 ) !default;
 
+@function min-width($size) {
+  @return "(min-width: #{$size})";
+}
+
+@function max-width($size) {
+  @return "(max-width: #{$size - 1})";
+}
+
+@function only-width($min, $max) {
+  @if ($min == null) {
+    @return max-width($max);
+  } @else if ($max == null) {
+    @return min-width($max);
+  } @else {
+    @return "(min-width: #{$min}) and (max-width: #{$max - 1})";
+  }
+}
+
 $breakpoints-spec: (
   "xs-only": max-width(map.get($breakpoints, sm)),
   "sm-and-up": min-width(map.get($breakpoints, sm)),
@@ -56,3 +91,7 @@ $breakpoints-spec: (
   "lg-and-down": max-width(map.get($breakpoints, xl)),
   "xl-only": min-width(map.get($breakpoints, xl)),
 ) !default;
+
+// variable
+$rem-base: 4;
+$rem-unit-base: 16px;
