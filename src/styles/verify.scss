@@ -4,7 +4,10 @@
 @use "./vars.scss" as vars;
 
 $common_values: unset inherit initial revert revert-layer;
-$directions: "left" "right" "top" "bottom";
+$directions: left right top bottom;
+$animation-directions: normal reverse alternate alternate-reverse;
+$animation-modes: node forwards backwards both;
+$animation-states: running paused;
 
 @function is_common_value($value) {
   @each $v in $common_values {
@@ -22,7 +25,7 @@ $directions: "left" "right" "top" "bottom";
     is_common_value($number)
   {
     @debug "--- valid_number ---";
-    @error "无效的 number: #{$number}";
+    @error "Invalid number: #{$number}";
     @return null;
   }
   @return $number;
@@ -45,7 +48,7 @@ $directions: "left" "right" "top" "bottom";
     is_common_value($number)
   {
     @debug "--- valid_string ---";
-    @error "无效的 string: #{$string}";
+    @error "Invalid string: #{$string}";
     @return null;
   }
   @return $string;
@@ -67,5 +70,49 @@ $directions: "left" "right" "top" "bottom";
       @return $direction;
     }
   }
+  @debug "--- valid_direction ---";
+  @warn "Invalid direction: #{$direction}, direction should in #{$directions}";
+  @return null;
+}
+
+@function valid_animation_direction($direction) {
+  @if $direction == null {
+    @return $direction;
+  }
+  @each $d in $animation-directions {
+    @if $direction == $d {
+      @return $direction;
+    }
+  }
+  @debug "--- valid_animation_direction ---";
+  @warn "Invalid direction: #{$direction}, direction should in #{$animation-directions}";
+  @return null;
+}
+
+@function valid_animation_mode($mode) {
+  @if $mode == null {
+    @return $mode;
+  }
+  @each $m in $animation-modes {
+    @if $mode == $m {
+      @return $mode;
+    }
+  }
+  @debug "--- valid_animation_mode ---";
+  @warn "Invalid mode: #{$mode}, mode should in #{$animation-modes}";
+  @return null;
+}
+
+@function valid_animation_state($state) {
+  @if $state == null {
+    @return $state;
+  }
+  @each $s in $animation-states {
+    @if $state == $s {
+      @return $state;
+    }
+  }
+  @debug "--- valid_animation_state ---";
+  @warn "Invalid state: #{$state}, state should in #{$animation-states}";
   @return null;
 }

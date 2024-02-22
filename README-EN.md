@@ -5,21 +5,21 @@
 
 ---
 
-[English](./README-EN.md)
+[中文](./README.md)
 
-Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代码量！
+Sass is a lightweight, safe and pollution-free runtime tool set that simplifies css writing without increasing the amount of code!
 
-**功能特点**
+**Feature**
 
-- 响应式布局
-- 管理统一的 breakpoint
-- unocss 一致的 rem 转化
-- 小三角
-- placeholder 样式更改
-- 多行文本省略号
-- 正方形盒子
+- Responsive layout
+- Manage unified breakpoint
+- Unocss consistent rem conversion
+- Make triangle
+- Placeholder style changes
+- Multiline text ellipses
+- Square box
 
-## 安装
+## Install
 
 ```bash
 yarn add sass-runtime-tool -D
@@ -27,7 +27,7 @@ yarn add sass-runtime-tool -D
 npm i -D sass-runtime-tool
 ```
 
-## 使用
+## Use
 
 ```scss
 // xxx.scss
@@ -35,10 +35,10 @@ npm i -D sass-runtime-tool
 // ...
 ```
 
-**Vite 全局使用**
+**Vite Global Use**
 
 ```scss
-// 创建 src/assets/global.scss
+// src/assets/global.scss
 @forward "sass-runtime-tool/all.scss";
 ```
 
@@ -57,14 +57,11 @@ export default defineConfig({
 });
 ```
 
-### 响应式
+### Responsive web design
 
 ```html
 <body>
-  <div class="box">
-    <span>box1</span>
-    <span>box2</span>
-  </div>
+  <div class="box">box</div>
 </body>
 
 <style lang="scss">
@@ -100,7 +97,7 @@ export default defineConfig({
 </style>
 ```
 
-### 与 unocss 一致的 rem 转化
+### Rem transformation
 
 ```html
 <body>
@@ -109,12 +106,12 @@ export default defineConfig({
 
 <style lang="scss">
   div {
-    font-size: rem(4); // 1rem, 可通过 $rem-base 改变
+    font-size: rem(4); // 1rem, It can be changed with $rem-base
   }
 </style>
 ```
 
-### 改变 placeholder 的颜色和大小
+### Change the color and size of placeholder
 
 ```html
 <body>
@@ -127,7 +124,7 @@ export default defineConfig({
       font-size: 12px;
     }
   }
-  /* 或者 */
+  /* or */
   .input {
     @include placeholder {
       color: red;
@@ -137,7 +134,7 @@ export default defineConfig({
 </style>
 ```
 
-### 下拉框小三角
+### Small triangle
 
 ```html
 <body>
@@ -160,18 +157,21 @@ export default defineConfig({
     }
   }
   .triangle-2 {
-    @include triangle($color: blue);
+    @include triangle("bottom", 6px, blue);
   }
 </style>
 ```
 
-### 超出显示省略号
+### Exceed display ellipses
 
 ```html
 <body>
-  <div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
   <div class="ellipsis">
-    多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
+    Multi-line ellipsis Multi-line ellipsis Multi-line ellipsis multi-line
+    ellipsis
+  </div>
+  <div class="ellipsis-2">
+    A line of ellipses a line of ellipses a line of ellipses
   </div>
 </body>
 
@@ -187,7 +187,7 @@ export default defineConfig({
 </style>
 ```
 
-### 水平、垂直对齐
+### Align horizontally and vertically
 
 ```html
 <body>
@@ -198,22 +198,21 @@ export default defineConfig({
 </body>
 
 <style lang="scss">
-  /* 水平对齐 */
   .list {
     @include items-center;
   }
-  /* 垂直对齐 */
+  /* or */
   .list {
     @include justify-center;
   }
-  /* 水平垂直对齐 */
+  /* or */
   .list {
     @include flex-center;
   }
 </style>
 ```
 
-### 正方形
+### Square box
 
 ```html
 <body>
@@ -223,12 +222,12 @@ export default defineConfig({
 <style lang="scss">
   .square {
     @include square(100px);
-    background-color: red;
+    background-color: map-get($colors, safety);
   }
 </style>
 ```
 
-### 变量、方法的使用
+### Use of variables and methods
 
 ```scss
 @debug map-get($colors, white);
@@ -253,11 +252,11 @@ export default defineConfig({
 @debug values(20, 5px);
 ```
 
-## 默认主题
+## Default theme
 
 ```scss
 // Color
-$color-count: 3; // 最大值 10，生成的颜色层级数
+$color-count: 3; // Maximum 10, number of generated color levels
 $colors: (
   "white": #ffffff,
   "black": #000000,
@@ -293,18 +292,18 @@ $rem-base: 4;
 $rem-unit-base: 16px;
 ```
 
-## 自定义主题
+## Custom theme
 
 ```scss
-@forward "sass-runtime-tool/all.scss" with (
-  // 最大 10
-  // 生成 [name]-lighten-1 ~ [name]-lighten-10 和 [name]-darken-1 ~ [name]-darken-10
+@forward "../styles/var.scss" with (
+  // Maximum 10
+  // Generate [name]-lighten-1 ~ [name]-lighten-10 and [name]-darken-1 ~ [name]-darken-10
   $color-count: 10,
   $colors: (primary: blue, safety: green),
-  // 自定义响应式断点
+  // Custom reactive breakpoints
   $breakpoints: ("mi": 480px, "sm": 640px),
-  $breakpoints-spec: ("micro-only": max-width(map.get($breakpoints, mi))),
-  // 设置 rem base
+  $breakpoints-spec: ("micro-only": max-width(map-get($breakpoints, mi))),
+  // Rem base
   $rem-base: 5 // [20 => 4rem, 10 => 2rem]
 );
 ```

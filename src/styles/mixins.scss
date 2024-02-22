@@ -22,62 +22,6 @@
   }
 }
 
-@mixin width($min: 100%, $sm: null, $md: null, $lg: null, $xl: null) {
-  width: $min;
-
-  @if $sm {
-    @media screen and (min-width: map-get(vars.$breakpoints, sm)) {
-      width: $sm;
-    }
-  }
-
-  @if $md {
-    @media screen and (min-width: map-get(vars.$breakpoints, md)) {
-      width: $md;
-    }
-  }
-
-  @if $lg {
-    @media screen and (min-width: map-get(vars.$breakpoints, lg)) {
-      width: $lg;
-    }
-  }
-
-  @if $xl {
-    @media screen and (min-width: map-get(vars.$breakpoints, xl)) {
-      width: $xl;
-    }
-  }
-}
-
-@mixin height($min: unset, $sm: null, $md: null, $lg: null, $xl: null) {
-  height: $min;
-
-  @if $sm {
-    @media screen and (min-width: map-get(vars.$breakpoints, sm)) {
-      height: $sm;
-    }
-  }
-
-  @if $md {
-    @media screen and (min-width: map-get(vars.$breakpoints, md)) {
-      height: $md;
-    }
-  }
-
-  @if $lg {
-    @media screen and (min-width: map-get(vars.$breakpoints, lg)) {
-      height: $lg;
-    }
-  }
-
-  @if $xl {
-    @media screen and (min-width: map-get(vars.$breakpoints, xl)) {
-      height: $xl;
-    }
-  }
-}
-
 @mixin items-center($gap: null) {
   $_gap: verify.valid_numbers($gap, true);
 
@@ -144,15 +88,6 @@
   }
 }
 
-@mixin container($base: 1200px) {
-  margin: auto;
-  box-sizing: border-box;
-  @include width(100%, min(96%, $base));
-  @include media("xs-only") {
-    padding: 0 10px;
-  }
-}
-
 @mixin row-to-col($tap: "xs-only") {
   display: flex;
 
@@ -210,5 +145,46 @@
       color: $color;
     }
     @content;
+  }
+}
+
+@mixin animation(
+  $name,
+  $duration: 0.3s,
+  $function: linear,
+  $delay: null,
+  $count: infinite,
+  $direction: alternate,
+  $mode: null,
+  $state: null
+) {
+  $_duration: verify.valid_number($duration, true);
+  $_delay: verify.valid_number($delay, true);
+  $_count: if($count == infinite, $count, verify.valid_number($count, true));
+  $_direction: verify.valid_animation_direction($direction);
+  $_mode: verify.valid_animation_direction($mode);
+  $_state: verify.valid_animation_direction($state);
+
+  animation-name: #{$name};
+  @if $_duration {
+    animation-duration: $_duration;
+  }
+  @if $function {
+    animation-timing-function: $function;
+  }
+  @if $_delay {
+    animation-delay: $_delay;
+  }
+  @if $_count {
+    animation-iteration-count: $_count;
+  }
+  @if $_direction {
+    animation-direction: $_direction;
+  }
+  @if $_mode {
+    animation-fill-mode: $_mode;
+  }
+  @if $_state {
+    animation-play-state: $_state;
   }
 }

@@ -1,5 +1,14 @@
+<script setup lang="ts">
+import Test from "./Test.vue";
+</script>
+
 <template>
-  <div class="box"></div>
+  <Test />
+  <div class="box">
+    <span>box1</span>
+    <span>box2</span>
+  </div>
+  <div class="square"></div>
   <input class="input" placeholder="Please enter content" />
   <div class="triangle">
     <div class="triangle-2"></div>
@@ -13,6 +22,7 @@
     <li>2</li>
     <li>3</li>
   </ul>
+  <div class="fade-in">1</div>
 </template>
 
 <style lang="scss" scoped>
@@ -42,12 +52,16 @@
     background-color: map-get($colors, danger-lighten-1);
     background-image: unset;
   }
+  @include row-to-col(xs-only);
+}
+.square {
+  @include square(100px);
+  background-color: map-get($colors, danger);
 }
 
 .input {
-  @include placeholder(red) {
-    // 或者直接在下边写
-    // color: red;
+  @include placeholder {
+    color: red;
     font-size: 12px;
   }
 }
@@ -56,12 +70,7 @@
   &::before {
     content: "";
     display: inline-block;
-    @include triangle();
-  }
-  &::after {
-    content: "";
-    display: inline-block;
-    @include triangle("left", 26px, green);
+    @include triangle($color: pink);
   }
 }
 
@@ -74,13 +83,19 @@
 }
 .ellipsis-2 {
   width: 100px;
-  @include ellipsis();
+  @include ellipsis;
+  font-size: rem(4);
 }
 
 .list {
-  @include items-center();
+  @include items-center;
   // 或者你需要某个断点响应
   @include row-to-col("md-and-down");
   align-items: center;
+}
+
+@include fadein;
+.fade-in {
+  @include animation("fadein", 1s);
 }
 </style>
