@@ -64,223 +64,213 @@ export default defineConfig({
 ### Responsive web design
 
 ```html
-<body>
-  <div class="box">box</div>
-</body>
+<div class="box">box</div>
+```
 
-<style lang="scss">
-  .box {
-    height: 10px;
-    background-image: linear-gradient(
-      to right,
-      toLighten(pink, 50%),
-      toDarken(pink, 50%)
-    );
-    border: 2px solid map-get($colors, safety-lighten-1);
+```scss
+.box {
+  height: 10px;
+  background-image: linear-gradient(
+    to right,
+    toLighten(pink, 50%),
+    toDarken(pink, 50%)
+  );
+  border: 2px solid map-get($colors, safety-lighten-1);
 
-    @include media("md-and-down") {
-      width: 50vw;
-    }
-
-    @include media("xs-only") {
-      background-color: map-get($colors, danger);
-      background-image: unset;
-    }
-
-    @media screen and (max-width(768px)) {
-      opacity: 0.5;
-    }
-
-    @include media(only-width(768px, 960px)) {
-      background-color: map-get($colors, danger-lighten-1);
-      background-image: unset;
-    }
-
-    @include row-to-col(xs-only);
+  @include media("md-and-down") {
+    width: 50vw;
   }
-</style>
+
+  @include media("xs-only") {
+    background-color: map-get($colors, danger);
+    background-image: unset;
+  }
+
+  @media screen and (max-width(768px)) {
+    opacity: 0.5;
+  }
+
+  @include media(only-width(768px, 960px)) {
+    background-color: map-get($colors, danger-lighten-1);
+    background-image: unset;
+  }
+
+  @include row-to-col(xs-only);
+}
 ```
 
 ### Rem transformation
 
 ```html
-<body>
-  <div>Content</div>
-</body>
+<div>Content</div>
+```
 
-<style lang="scss">
-  div {
-    font-size: rem(4); // 1rem, It can be changed with $rem-base
-  }
-</style>
+```scss
+div {
+  // 1rem, It can be changed with $rem-base
+  font-size: rem(4);
+}
 ```
 
 ### Change the color and size of placeholder
 
 ```html
-<body>
-  <input class="input" placeholder="Please enter content" />
-</body>
+<input class="input" placeholder="Please enter content" />
+```
 
-<style lang="scss">
-  .input {
-    @include placeholder(red) {
-      font-size: 12px;
-    }
+```scss
+.input {
+  @include placeholder(red) {
+    font-size: 12px;
   }
-  /* or */
-  .input {
-    @include placeholder {
-      color: red;
-      font-size: 12px;
-    }
+}
+/* or */
+.input {
+  @include placeholder {
+    color: red;
+    font-size: 12px;
   }
-</style>
+}
 ```
 
 ### Small triangle
 
 ```html
-<body>
-  <div class="triangle">
-    <div class="triangle-2"></div>
-  </div>
-</body>
+<div class="triangle">
+  <div class="triangle-2"></div>
+</div>
+```
 
-<style lang="scss">
-  .triangle {
-    &::before {
-      content: "";
-      display: inline-block;
-      @include triangle;
-    }
-    &::after {
-      content: "";
-      display: inline-block;
-      @include triangle("left", 26px, green);
-    }
+```scss
+<style lang="scss" > .triangle {
+  &::before {
+    content: "";
+    display: inline-block;
+    @include triangle;
   }
-  .triangle-2 {
-    @include triangle("bottom", 6px, blue);
+  &::after {
+    content: "";
+    display: inline-block;
+    @include triangle("left", 26px, green);
   }
-</style>
+}
+.triangle-2 {
+  @include triangle($color: blue);
+}
 ```
 
 ### Exceed display ellipses
 
 ```html
-<body>
-  <div class="ellipsis">
-    Multi-line ellipsis Multi-line ellipsis Multi-line ellipsis multi-line
-    ellipsis
-  </div>
-  <div class="ellipsis-2">
-    A line of ellipses a line of ellipses a line of ellipses
-  </div>
-</body>
+<div class="ellipsis">
+  Multi-line ellipsis Multi-line ellipsis Multi-line ellipsis multi-line
+  ellipsis
+</div>
+<div class="ellipsis-2">
+  A line of ellipses a line of ellipses a line of ellipses
+</div>
+```
 
-<style lang="scss">
-  .ellipsis {
-    width: 100px;
-    @include ellipsis(3);
-  }
-  .ellipsis-2 {
-    width: 100px;
-    @include ellipsis;
-  }
-</style>
+```scss
+.ellipsis {
+  width: 100px;
+  @include ellipsis(3);
+}
+.ellipsis-2 {
+  width: 100px;
+  @include ellipsis;
+}
 ```
 
 ### Align horizontally and vertically
 
 ```html
-<body>
-  <ul class="list">
-    <li>1</li>
-    <li>2</li>
-  </ul>
-</body>
+<ul class="list">
+  <li>1</li>
+  <li>2</li>
+</ul>
+```
 
-<style lang="scss">
-  .list {
-    @include items-center;
-  }
-  /* or */
-  .list {
-    @include justify-center;
-  }
-  /* or */
-  .list {
-    @include flex-center;
-  }
-</style>
+```scss
+.list {
+  @include items-center;
+}
+/* or */
+.list {
+  @include justify-center;
+}
+/* or */
+.list {
+  @include flex-center;
+}
 ```
 
 ### Square box
 
 ```html
-<body>
-  <div class="square"></div>
-</body>
+<div class="square"></div>
+```
 
-<style lang="scss">
-  .square {
-    @include square(100px);
-    background-color: map-get($colors, safety);
-  }
-</style>
+```scss
+.square {
+  @include square(100px);
+  background-color: map-get($colors, safety);
+}
 ```
 
 ### Clear float
 
 ```html
-<hr />
-<div class="box">
-  <div class="inner">1</div>
+<div>
+  <div class="left">left</div>
+  <div class="right">right</div>
 </div>
+```
 
-<style lang="scss">
-  .inner {
-    margin-top: 10px;
-  }
-  .box {
-    @include clearfix;
-  }
-</style>
+```scss
+.left {
+  float: left;
+}
+.right {
+  @include clearfix;
+}
 ```
 
 ### Clear margin collapsing
 
 ```html
 <div class="box-clearfix">
-  <div class="inner">1</div>
+  <div class="inner">inner-inner-inner</div>
 </div>
+```
 
-<style lang="scss">
-  .inner {
-    margin-top: 10px;
-  }
-  .box-clearfix {
-    background-color: map-get($colors, warning);
-    @include margin-recover;
-  }
-</style>
+```scss
+.inner {
+  margin-top: 10px;
+}
+.box-clearfix {
+  background-color: map-get($colors, warning);
+  @include margin-recover;
+}
 ```
 
 ### Simplify animation use
 
 ```html
-<div class="fade-in">1</div>
+<div class="fade">1</div>
+```
 
-<style lang="scss">
-  /* Global animation only needs to be created once, "It shouldn't be in scoped"  */
-  @include fadein;
-  /* or */
-  @include fadeout;
-  .fade-in {
-    @include animation("fadein", 1s);
-  }
-</style>
+```scss
+/* Global animation only needs to be created once, "It shouldn't be in scoped"  */
+@include fadein;
+.fade {
+  @include animation("fadein", 1s);
+}
+/* or */
+@include fadeout;
+.fade {
+  @include animation("fadeout", 1s);
+}
 ```
 
 ### Shorthand positioning
@@ -289,22 +279,23 @@ export default defineConfig({
 <div class="loading-container">
   <div class="loading">loading...</div>
 </div>
+```
 
-<style lang="scss">
-  .loading-container {
-    width: 100px;
-    height: 100px;
-    border: 1px solid red;
-    position: relative;
-  }
-  .loading {
-    @include position-content-center;
-    /* or */
-    @include position-center;
-    /* or */
-    @include position-full;
-  }
-</style>
+```scss
+.loading-container {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+  position: relative;
+}
+.loading {
+  /* Center the contents and fill the parent container */
+  @include position-content-center;
+  /* Centering */
+  @include position-center;
+  /* Full container */
+  @include position-full;
+}
 ```
 
 ### Use of variables and methods

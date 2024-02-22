@@ -68,71 +68,71 @@ export default defineConfig({
   <span>box1</span>
   <span>box2</span>
 </div>
+```
 
-<style lang="scss">
-  .box {
-    height: 10px;
-    background-image: linear-gradient(
-      to right,
-      toLighten(pink, 50%),
-      toDarken(pink, 50%)
-    );
-    border: 2px solid map-get($colors, safety-lighten-1);
+```scss
+.box {
+  height: 10px;
+  background-image: linear-gradient(
+    to right,
+    toLighten(pink, 50%),
+    toDarken(pink, 50%)
+  );
+  border: 2px solid map-get($colors, safety-lighten-1);
 
-    @include media("md-and-down") {
-      width: 50vw;
-    }
-
-    @include media("xs-only") {
-      background-color: map-get($colors, danger);
-      background-image: unset;
-    }
-
-    @media screen and (max-width(768px)) {
-      opacity: 0.5;
-    }
-
-    @include media(only-width(768px, 960px)) {
-      background-color: map-get($colors, danger-lighten-1);
-      background-image: unset;
-    }
-
-    @include row-to-col(xs-only);
+  @include media("md-and-down") {
+    width: 50vw;
   }
-</style>
+
+  @include media("xs-only") {
+    background-color: map-get($colors, danger);
+    background-image: unset;
+  }
+
+  @media screen and (max-width(768px)) {
+    opacity: 0.5;
+  }
+
+  @include media(only-width(768px, 960px)) {
+    background-color: map-get($colors, danger-lighten-1);
+    background-image: unset;
+  }
+
+  @include row-to-col(xs-only);
+}
 ```
 
 ### 与 unocss 一致的 rem 转化
 
 ```html
 <div>Content</div>
+```
 
-<style lang="scss">
-  div {
-    font-size: rem(4); // 1rem, 可通过 $rem-base 改变
-  }
-</style>
+```scss
+div {
+  font-size: rem(4); // 1rem, 可通过 $rem-base 改变
+}
 ```
 
 ### 改变 placeholder 的颜色和大小
 
 ```html
 <input class="input" placeholder="Please enter content" />
+```
 
-<style lang="scss">
-  .input {
-    @include placeholder(red) {
-      font-size: 12px;
-    }
+```scss
+.input {
+  @include placeholder(red) {
+    font-size: 12px;
   }
-  /* 或者 */
-  .input {
-    @include placeholder {
-      color: red;
-      font-size: 12px;
-    }
+}
+/* 或者 */
+.input {
+  @include placeholder {
+    color: red;
+    font-size: 12px;
   }
-</style>
+}
 ```
 
 ### 下拉框小三角
@@ -141,24 +141,24 @@ export default defineConfig({
 <div class="triangle">
   <div class="triangle-2"></div>
 </div>
+```
 
-<style lang="scss">
-  .triangle {
-    &::before {
-      content: "";
-      display: inline-block;
-      @include triangle;
-    }
-    &::after {
-      content: "";
-      display: inline-block;
-      @include triangle("left", 26px, green);
-    }
+```scss
+.triangle {
+  &::before {
+    content: "";
+    display: inline-block;
+    @include triangle;
   }
-  .triangle-2 {
-    @include triangle($color: blue);
+  &::after {
+    content: "";
+    display: inline-block;
+    @include triangle("left", 26px, green);
   }
-</style>
+}
+.triangle-2 {
+  @include triangle($color: blue);
+}
 ```
 
 ### 超出显示省略号
@@ -168,17 +168,17 @@ export default defineConfig({
 <div class="ellipsis">
   多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
 </div>
+```
 
-<style lang="scss">
-  .ellipsis {
-    width: 100px;
-    @include ellipsis(3);
-  }
-  .ellipsis-2 {
-    width: 100px;
-    @include ellipsis;
-  }
-</style>
+```scss
+.ellipsis {
+  width: 100px;
+  @include ellipsis(3);
+}
+.ellipsis-2 {
+  width: 100px;
+  @include ellipsis;
+}
 ```
 
 ### 水平、垂直对齐
@@ -188,86 +188,87 @@ export default defineConfig({
   <li>1</li>
   <li>2</li>
 </ul>
+```
 
-<style lang="scss">
-  /* 水平对齐 */
-  .list {
-    @include items-center;
-  }
-  /* 垂直对齐 */
-  .list {
-    @include justify-center;
-  }
-  /* 水平垂直对齐 */
-  .list {
-    @include flex-center;
-  }
-</style>
+```scss
+/* 水平对齐 */
+.list {
+  @include items-center;
+}
+/* 垂直对齐 */
+.list {
+  @include justify-center;
+}
+/* 水平垂直对齐 */
+.list {
+  @include flex-center;
+}
 ```
 
 ### 正方形
 
 ```html
 <div class="square"></div>
+```
 
-<style lang="scss">
-  .square {
-    @include square(100px);
-    background-color: red;
-  }
-</style>
+```scss
+.square {
+  @include square(100px);
+  background-color: red;
+}
 ```
 
 ### 清除浮动
 
 ```html
-<hr />
-<div class="box">
-  <div class="inner">1</div>
-</div>
+<div class="left">left</div>
+<div class="right">right</div>
+```
 
-<style lang="scss">
-  .inner {
-    margin-top: 10px;
-  }
-  .box {
-    @include clearfix;
-  }
-</style>
+```scss
+.left {
+  float: left;
+}
+.right {
+  @include clearfix;
+}
 ```
 
 ### 清除 margin 折叠
 
 ```html
 <div class="box-clearfix">
-  <div class="inner">1</div>
+  <div class="inner">inner-inner-inner</div>
 </div>
+```
 
-<style lang="scss">
-  .inner {
-    margin-top: 10px;
-  }
-  .box-clearfix {
-    background-color: map-get($colors, warning);
-    @include margin-recover;
-  }
-</style>
+```scss
+.inner {
+  margin-top: 10px;
+}
+.box-clearfix {
+  background-color: map-get($colors, warning);
+  @include margin-recover;
+}
 ```
 
 ### 简化 animation 使用
 
 ```html
-<div class="fade-in">1</div>
+<div class="fade">Fade In</div>
+```
 
-<style lang="scss">
-  /* 全局只需创建一次动画，「它不应该在 scoped 中」 */
-  @include fadein;
-  /* or */
-  @include fadeout;
-  .fade-in {
-    @include animation("fadein", 1s);
-  }
-</style>
+```scss
+/* 全局只需创建一次动画，「它不应该在 scoped 中」 */
+@include fadein;
+.fade {
+  @include animation("fadein", 1s);
+}
+/* or */
+@include fadeout;
+.fade {
+  @include animation("fadeout", 1s);
+}
 ```
 
 ### 简写定位
@@ -276,22 +277,23 @@ export default defineConfig({
 <div class="loading-container">
   <div class="loading">loading...</div>
 </div>
+```
 
-<style lang="scss">
-  .loading-container {
-    width: 100px;
-    height: 100px;
-    border: 1px solid red;
-    position: relative;
-  }
-  .loading {
-    @include position-content-center;
-    /* 或者 */
-    @include position-center;
-    /* 或者 */
-    @include position-full;
-  }
-</style>
+```scss
+.loading-container {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+  position: relative;
+}
+.loading {
+  /* 内容居中且填充父容器 */
+  @include position-content-center;
+  /* 居中定位 */
+  @include position-center;
+  /* 填充父容器 */
+  @include position-full;
+}
 ```
 
 ### 变量、方法的使用
