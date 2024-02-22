@@ -366,7 +366,7 @@ $rem-unit-base: 16px;
 ## Custom theme
 
 ```scss
-@forward "../styles/var.scss" with (
+@forward "sass-runtime-tool/all.scss" with (
   // Maximum 10
   // Generate [name]-lighten-1 ~ [name]-lighten-10 and [name]-darken-1 ~ [name]-darken-10
   $color-count: 10,
