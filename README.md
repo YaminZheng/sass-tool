@@ -18,6 +18,10 @@ Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代�
 - placeholder 样式更改
 - 多行文本省略号
 - 正方形盒子
+- 清除浮动
+- 删除 margin 折叠
+- 简化 animation 使用
+- 简写定位
 
 ## 安装
 
@@ -60,12 +64,10 @@ export default defineConfig({
 ### 响应式
 
 ```html
-<body>
-  <div class="box">
-    <span>box1</span>
-    <span>box2</span>
-  </div>
-</body>
+<div class="box">
+  <span>box1</span>
+  <span>box2</span>
+</div>
 
 <style lang="scss">
   .box {
@@ -103,9 +105,7 @@ export default defineConfig({
 ### 与 unocss 一致的 rem 转化
 
 ```html
-<body>
-  <div>Content</div>
-</body>
+<div>Content</div>
 
 <style lang="scss">
   div {
@@ -117,9 +117,7 @@ export default defineConfig({
 ### 改变 placeholder 的颜色和大小
 
 ```html
-<body>
-  <input class="input" placeholder="Please enter content" />
-</body>
+<input class="input" placeholder="Please enter content" />
 
 <style lang="scss">
   .input {
@@ -140,11 +138,9 @@ export default defineConfig({
 ### 下拉框小三角
 
 ```html
-<body>
-  <div class="triangle">
-    <div class="triangle-2"></div>
-  </div>
-</body>
+<div class="triangle">
+  <div class="triangle-2"></div>
+</div>
 
 <style lang="scss">
   .triangle {
@@ -168,12 +164,10 @@ export default defineConfig({
 ### 超出显示省略号
 
 ```html
-<body>
-  <div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
-  <div class="ellipsis">
-    多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
-  </div>
-</body>
+<div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
+<div class="ellipsis">
+  多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
+</div>
 
 <style lang="scss">
   .ellipsis {
@@ -190,12 +184,10 @@ export default defineConfig({
 ### 水平、垂直对齐
 
 ```html
-<body>
-  <ul class="list">
-    <li>1</li>
-    <li>2</li>
-  </ul>
-</body>
+<ul class="list">
+  <li>1</li>
+  <li>2</li>
+</ul>
 
 <style lang="scss">
   /* 水平对齐 */
@@ -216,14 +208,88 @@ export default defineConfig({
 ### 正方形
 
 ```html
-<body>
-  <div class="square"></div>
-</body>
+<div class="square"></div>
 
 <style lang="scss">
   .square {
     @include square(100px);
     background-color: red;
+  }
+</style>
+```
+
+### 清除浮动
+
+```html
+<hr />
+<div class="box">
+  <div class="inner">1</div>
+</div>
+
+<style lang="scss">
+  .inner {
+    margin-top: 10px;
+  }
+  .box {
+    @include clearfix;
+  }
+</style>
+```
+
+### 清除 margin 折叠
+
+```html
+<div class="box-clearfix">
+  <div class="inner">1</div>
+</div>
+
+<style lang="scss">
+  .inner {
+    margin-top: 10px;
+  }
+  .box-clearfix {
+    background-color: map-get($colors, warning);
+    @include margin-recover;
+  }
+</style>
+```
+
+### 简化 animation 使用
+
+```html
+<div class="fade-in">1</div>
+
+<style lang="scss">
+  /* 全局只需创建一次动画，「它不应该在 scoped 中」 */
+  @include fadein;
+  /* or */
+  @include fadeout;
+  .fade-in {
+    @include animation("fadein", 1s);
+  }
+</style>
+```
+
+### 简写定位
+
+```html
+<div class="loading-container">
+  <div class="loading">loading...</div>
+</div>
+
+<style lang="scss">
+  .loading-container {
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+    position: relative;
+  }
+  .loading {
+    @include position-content-center;
+    /* 或者 */
+    @include position-center;
+    /* 或者 */
+    @include position-full;
   }
 </style>
 ```

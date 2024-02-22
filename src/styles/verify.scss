@@ -8,6 +8,8 @@ $directions: left right top bottom;
 $animation-directions: normal reverse alternate alternate-reverse;
 $animation-modes: node forwards backwards both;
 $animation-states: running paused;
+$positions: static relative absolute fixed sticky;
+$container-types: inline-size size;
 
 @function is_common_value($value) {
   @each $v in $common_values {
@@ -114,5 +116,27 @@ $animation-states: running paused;
   }
   @debug "--- valid_animation_state ---";
   @warn "Invalid state: #{$state}, state should in #{$animation-states}";
+  @return null;
+}
+
+@function valid_position($position) {
+  @each $p in $positions {
+    @if $position == $p {
+      @return $position;
+    }
+  }
+  @debug "--- valid_position ---";
+  @warn "Invalid position: #{$position}, position should in #{$positions}";
+  @return null;
+}
+
+@function valid_container_type($type) {
+  @each $c in $container-types {
+    @if $type == $c {
+      @return $type;
+    }
+  }
+  @debug "--- valid_container_type ---";
+  @warn "Invalid type: #{$type}, type should in #{$container-types}";
   @return null;
 }

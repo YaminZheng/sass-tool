@@ -18,6 +18,10 @@ Sass is a lightweight, safe and pollution-free runtime tool set that simplifies 
 - Placeholder style changes
 - Multiline text ellipses
 - Square box
+- Clear float
+- Clear margin collapsing
+- Simplify animation use
+- Simplify posiiton
 
 ## Install
 
@@ -223,6 +227,82 @@ export default defineConfig({
   .square {
     @include square(100px);
     background-color: map-get($colors, safety);
+  }
+</style>
+```
+
+### Clear float
+
+```html
+<hr />
+<div class="box">
+  <div class="inner">1</div>
+</div>
+
+<style lang="scss">
+  .inner {
+    margin-top: 10px;
+  }
+  .box {
+    @include clearfix;
+  }
+</style>
+```
+
+### Clear margin collapsing
+
+```html
+<div class="box-clearfix">
+  <div class="inner">1</div>
+</div>
+
+<style lang="scss">
+  .inner {
+    margin-top: 10px;
+  }
+  .box-clearfix {
+    background-color: map-get($colors, warning);
+    @include margin-recover;
+  }
+</style>
+```
+
+### Simplify animation use
+
+```html
+<div class="fade-in">1</div>
+
+<style lang="scss">
+  /* Global animation only needs to be created once, "It shouldn't be in scoped"  */
+  @include fadein;
+  /* or */
+  @include fadeout;
+  .fade-in {
+    @include animation("fadein", 1s);
+  }
+</style>
+```
+
+### Shorthand positioning
+
+```html
+<div class="loading-container">
+  <div class="loading">loading...</div>
+</div>
+
+<style lang="scss">
+  .loading-container {
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+    position: relative;
+  }
+  .loading {
+    @include position-content-center;
+    /* or */
+    @include position-center;
+    /* or */
+    @include position-full;
   }
 </style>
 ```

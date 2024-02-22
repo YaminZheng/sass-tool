@@ -53,6 +53,35 @@
   }
 }
 
+@mixin position-full($position: absolute) {
+  $_position: verify.valid_position($position);
+
+  @if $_position {
+    position: #{$_position};
+    inset: 0;
+  }
+}
+
+@mixin position-center($position: absolute) {
+  $_position: verify.valid_position($position);
+
+  @if $_position {
+    position: #{$_position};
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin position-content-center($position: absolute) {
+  $_position: verify.valid_position($position);
+
+  @if $_position {
+    @include position-full($_position);
+    @include flex-center;
+  }
+}
+
 @mixin image-center($img: null) {
   $_img: verify.valid_strings($img, true);
 
@@ -148,6 +177,14 @@
   }
 }
 
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+}
+
 @mixin animation(
   $name,
   $duration: 0.3s,
@@ -186,5 +223,20 @@
   }
   @if $_state {
     animation-play-state: $_state;
+  }
+}
+
+@mixin margin-recover {
+  &::before {
+    height: 1px;
+    content: "";
+    display: block;
+    margin-bottom: -1px;
+  }
+  &::after {
+    height: 1px;
+    content: "";
+    display: block;
+    margin-top: -1px;
   }
 }

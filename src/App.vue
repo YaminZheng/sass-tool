@@ -23,6 +23,12 @@ import Test from "./Test.vue";
     <li>3</li>
   </ul>
   <div class="fade-in">1</div>
+  <div class="loading-container">
+    <div class="loading">loading...</div>
+  </div>
+  <div class="box-clearfix">
+    <div class="inner">1</div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -97,5 +103,23 @@ import Test from "./Test.vue";
 @include fadein;
 .fade-in {
   @include animation("fadein", 1s);
+}
+
+.loading-container {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+  position: relative;
+}
+.loading {
+  @include position-content-center;
+  font-size: 12px;
+}
+.inner {
+  margin-top: 10px;
+}
+.box-clearfix {
+  background-color: map-get($colors, warning);
+  @include margin-recover;
 }
 </style>
