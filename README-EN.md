@@ -35,7 +35,7 @@ npm i -D sass-runtime-tool
 
 ```scss
 // xxx.scss
-@forward "sass-runtime-tool/all.scss";
+@use "sass-runtime-tool/all.scss" as *;
 // ...
 ```
 
