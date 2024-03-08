@@ -86,10 +86,6 @@ export default defineConfig({
     background-image: unset;
   }
 
-  @media screen and (max-width(768px)) {
-    opacity: 0.5;
-  }
-
   @include media(only-width(768px, 960px)) {
     background-color: map-get($colors, danger-lighten-1);
     background-image: unset;

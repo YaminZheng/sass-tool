@@ -84,12 +84,16 @@
 
 @mixin image-center($img: null) {
   $_img: verify.valid_strings($img, true);
+  --image: $_img;
+  --position: center;
+  --size: contain;
+  --repeat: no-repeat;
 
   @if $_img {
-    background-image: $_img;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-image: var(--image);
+    background-position: var(--position);
+    background-size: var(--size);
+    background-repeat: var(--repeat);
   }
 }
 
