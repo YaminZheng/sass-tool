@@ -21,6 +21,7 @@ Sass is a lightweight, safe and pollution-free runtime tool set that simplifies 
 - Clear float
 - Clear margin collapsing
 - Remove the arrow to the right of <input type="number" />
+- Hide scroll bar
 - Simplify animation use
 - Simplify posiiton
 
@@ -261,6 +262,21 @@ div {
 /* Recommended for global use */
 :where(input[type="number"]) {
   @include hide-arrow;
+}
+```
+
+### Hide scroll bar
+
+```html
+<div class="scroll">
+  <p style="height: 1000px"></p>
+</div>
+```
+
+```scss
+.scroll {
+  height: 100px;
+  @include hide-scroll;
 }
 ```
 

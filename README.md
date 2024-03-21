@@ -21,6 +21,7 @@ Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代�
 - 清除浮动
 - 删除 margin 折叠
 - 去除 <input type="number" /> 右边的箭头
+- 隐藏滚动条
 - 简化 animation 使用
 - 简写定位
 
@@ -278,6 +279,21 @@ div {
 /* 推荐全局使用 */
 :where(input[type="number"]) {
   @include hide-arrow;
+}
+```
+
+### 隐藏滚动条
+
+```html
+<div class="scroll">
+  <p style="height: 1000px"></p>
+</div>
+```
+
+```scss
+.scroll {
+  height: 100px;
+  @include hide-scroll;
 }
 ```
 
