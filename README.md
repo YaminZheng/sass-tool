@@ -20,6 +20,7 @@ Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代�
 - 正方形盒子
 - 清除浮动
 - 删除 margin 折叠
+- 去除 <input type="number" /> 右边的箭头
 - 简化 animation 使用
 - 简写定位
 
@@ -35,7 +36,7 @@ npm i -D sass-runtime-tool
 
 ```scss
 // xxx.scss
-@use "sass-runtime-tool/all.scss" as *;
+@use "sass-runtime-tool/all.scss";
 // ...
 ```
 
@@ -264,6 +265,19 @@ div {
 @include fadeout;
 .fade {
   @include animation("fadeout", 1s);
+}
+```
+
+### 去除 <input type="number" /> 右边的箭头
+
+```html
+<input type="number" />
+```
+
+```scss
+/* 推荐全局使用 */
+:where(input[type="number"]) {
+  @include hide-arrow;
 }
 ```
 

@@ -20,6 +20,7 @@ Sass is a lightweight, safe and pollution-free runtime tool set that simplifies 
 - Square box
 - Clear float
 - Clear margin collapsing
+- Remove the arrow to the right of <input type="number" />
 - Simplify animation use
 - Simplify posiiton
 
@@ -35,7 +36,7 @@ npm i -D sass-runtime-tool
 
 ```scss
 // xxx.scss
-@use "sass-runtime-tool/all.scss" as *;
+@use "sass-runtime-tool/all.scss";
 // ...
 ```
 
@@ -247,6 +248,19 @@ div {
 .box-clearfix {
   background-color: map-get($colors, warning);
   @include margin-recover;
+}
+```
+
+### Remove the arrow to the right of <input type="number" />
+
+```html
+<input type="number" />
+```
+
+```scss
+/* Recommended for global use */
+:where(input[type="number"]) {
+  @include hide-arrow;
 }
 ```
 

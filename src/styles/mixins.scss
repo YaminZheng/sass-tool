@@ -244,3 +244,12 @@
     margin-top: -1px;
   }
 }
+
+@mixin hide-arrow {
+  -moz-appearance: textfield;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
