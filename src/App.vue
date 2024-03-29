@@ -29,6 +29,7 @@ import Test from "./Test.vue";
   <div class="box-clearfix">
     <div class="inner">1</div>
   </div>
+  <input type="number" />
 </template>
 
 <style lang="scss" scoped>
@@ -117,9 +118,15 @@ import Test from "./Test.vue";
 }
 .inner {
   margin-top: 10px;
+  height: 1000px;
 }
 .box-clearfix {
   background-color: map-get($colors, warning);
   @include margin-recover;
+  max-height: 300px;
+  overflow-y: auto;
+}
+:where(input[type="number"]) {
+  @include hide-arrow;
 }
 </style>
