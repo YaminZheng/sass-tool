@@ -73,30 +73,6 @@
   }
 }
 
-@mixin position-content-center($position: absolute) {
-  $_position: verify.valid_position($position);
-
-  @if $_position {
-    @include position-full($_position);
-    @include flex-center;
-  }
-}
-
-@mixin image-center($img: null) {
-  $_img: verify.valid_strings($img, true);
-  --image: $_img;
-  --position: center;
-  --size: contain;
-  --repeat: no-repeat;
-
-  @if $_img {
-    background-image: var(--image);
-    background-position: var(--position);
-    background-size: var(--size);
-    background-repeat: var(--repeat);
-  }
-}
-
 @mixin square($width: null) {
   $_width: verify.valid_number($width, true);
 
@@ -118,23 +94,6 @@
     word-wrap: break-word;
   } @else {
     white-space: nowrap;
-  }
-}
-
-@mixin row-to-col($tap: "xs-only") {
-  display: flex;
-
-  @include media($tap) {
-    flex-direction: column;
-  }
-}
-
-@mixin col-to-row($tap: "xs-only") {
-  display: flex;
-  flex-direction: column;
-
-  @include media($tap) {
-    flex-direction: row;
   }
 }
 
@@ -189,47 +148,6 @@
   }
 }
 
-@mixin animation(
-  $name,
-  $duration: 0.3s,
-  $function: linear,
-  $delay: null,
-  $count: infinite,
-  $direction: alternate,
-  $mode: null,
-  $state: null
-) {
-  $_duration: verify.valid_number($duration, true);
-  $_delay: verify.valid_number($delay, true);
-  $_count: if($count == infinite, $count, verify.valid_number($count, true));
-  $_direction: verify.valid_animation_direction($direction);
-  $_mode: verify.valid_animation_direction($mode);
-  $_state: verify.valid_animation_direction($state);
-
-  animation-name: #{$name};
-  @if $_duration {
-    animation-duration: $_duration;
-  }
-  @if $function {
-    animation-timing-function: $function;
-  }
-  @if $_delay {
-    animation-delay: $_delay;
-  }
-  @if $_count {
-    animation-iteration-count: $_count;
-  }
-  @if $_direction {
-    animation-direction: $_direction;
-  }
-  @if $_mode {
-    animation-fill-mode: $_mode;
-  }
-  @if $_state {
-    animation-play-state: $_state;
-  }
-}
-
 @mixin margin-recover {
   &::before {
     height: 1px;
@@ -264,3 +182,5 @@
     display: none;
   }
 }
+
+// @mixin

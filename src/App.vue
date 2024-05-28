@@ -1,78 +1,84 @@
-<script setup lang="ts">
-import Test from "./Test.vue";
-</script>
-
 <template>
-  <Test />
-  <div class="box">
-    <span>box1</span>
-    <span>box2</span>
-  </div>
+  <h1>响应式 media</h1>
+  <div class="box"></div>
+  <hr />
+  <h1>正方形盒子</h1>
   <div class="square"></div>
+  <hr />
+  <h1>input 标签修改 placeholder 样式</h1>
   <input class="input" placeholder="Please enter content" />
-  <div class="triangle">
-    <div class="triangle-2"></div>
+  <hr />
+  <h1>制作小三角</h1>
+  <div style="display: flex; align-items: center; gap: 4px">
+    <div class="triangle"></div>
+    <span>小三角</span>
   </div>
-  <div class="ellipsis-2">一行省略号一行省略号一行省略号一行省略号</div>
+  <hr />
+  <h1>任意行省略号</h1>
+  <div class="ellipsis-2">
+    单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行单行
+  </div>
+  <br />
   <div class="ellipsis">
-    多行省略号多行省略号多行省略号多行省略号多行省略号多行省略号
+    多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行多行
   </div>
-  <ul class="list">
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-  </ul>
-  <div class="fade-in">1</div>
-  <div class="loading-container">
-    <div class="loading">loading...</div>
-  </div>
+  <hr />
+  <h1>清除元素 margin</h1>
   <div class="box-clearfix">
-    <div class="inner">1</div>
+    <div class="inner">margin-top: 10px;</div>
   </div>
+  <hr />
+  <h1>删除 number 输入框右侧小三角</h1>
   <input type="number" />
+  <hr />
 </template>
 
 <style lang="scss" scoped>
+// media
 .box {
-  height: 10px;
+  height: 100px;
   background-image: linear-gradient(
     to right,
     toLighten(pink, 50%),
     toDarken(pink, 50%)
   );
-  border: 2px solid map-get($colors, safety-lighten-1);
 
   @include media("md-and-down") {
     width: 50vw;
   }
 
   @include media("xs-only") {
-    background-color: map-get($colors, danger);
+    background-color: toLighten(red, 10%);
     background-image: unset;
-  }
-
-  @media screen and (max-width(768px)) {
-    opacity: 0.5;
+    opacity: 0.9;
   }
 
   @include media(only-width(768px, 960px)) {
-    background-color: map-get($colors, danger-lighten-1);
+    background-color: toDarken(orange, 50%);
     background-image: unset;
   }
-  @include row-to-col(xs-only);
-}
-.square {
-  @include square(100px);
-  background-color: map-get($colors, danger);
 }
 
+// square
+.square {
+  @include square(100px);
+  background-color: toDarken(rgb(148, 148, 64), 10%);
+}
+
+// placeholder
 .input {
+  height: 40px;
+  padding: 0 10px;
+  font-size: rem(4.5);
+  border: thin solid toLighten(black, 50%);
+  border-radius: rem(1);
   @include placeholder {
-    color: red;
-    font-size: 12px;
+    color: toLighten(black, 80%);
+    font-size: inherit;
   }
 }
 
+// triangle
 .triangle {
   &::before {
     content: "";
@@ -80,52 +86,31 @@ import Test from "./Test.vue";
     @include triangle($color: pink);
   }
 }
-
 .triangle-2 {
   @include triangle("bottom", 6px, blue);
 }
+
+// ellipsis
 .ellipsis {
-  width: 100px;
+  width: 50%;
   @include ellipsis(3);
 }
 .ellipsis-2 {
-  width: 100px;
+  width: 50%;
   @include ellipsis;
   font-size: rem(4);
 }
 
-.list {
-  @include items-center;
-  // 或者你需要某个断点响应
-  @include row-to-col("md-and-down");
-  align-items: center;
-}
-
-@include fadein;
-.fade-in {
-  @include animation("fadein", 1s);
-}
-
-.loading-container {
-  width: 100px;
-  height: 100px;
-  border: 1px solid red;
-  position: relative;
-}
-.loading {
-  @include position-content-center;
-  font-size: 12px;
+// margin-recover
+.box-clearfix {
+  background-color: yellowgreen;
+  @include margin-recover;
 }
 .inner {
   margin-top: 10px;
-  height: 1000px;
 }
-.box-clearfix {
-  background-color: map-get($colors, warning);
-  @include margin-recover;
-  max-height: 300px;
-  overflow-y: auto;
-}
+
+// hide-arrow
 :where(input[type="number"]) {
   @include hide-arrow;
 }

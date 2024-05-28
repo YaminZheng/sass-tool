@@ -22,8 +22,6 @@ Sass is a lightweight, safe and pollution-free runtime tool set that simplifies 
 - Clear margin collapsing
 - Remove the arrow to the right of <input type="number" />
 - Hide scroll bar
-- Simplify animation use
-- Simplify posiiton
 
 ## Install
 
@@ -63,7 +61,7 @@ export default defineConfig({
 });
 ```
 
-### Responsive web design
+### Easy responsive web design
 
 ```html
 <div class="box">box</div>
@@ -77,23 +75,21 @@ export default defineConfig({
     toLighten(pink, 50%),
     toDarken(pink, 50%)
   );
-  border: 2px solid map-get($colors, safety-lighten-1);
+  border: 2px solid green;
 
   @include media("md-and-down") {
     width: 50vw;
   }
 
   @include media("xs-only") {
-    background-color: map-get($colors, danger);
+    background-color: orangered;
     background-image: unset;
   }
 
   @include media(only-width(768px, 960px)) {
-    background-color: map-get($colors, danger-lighten-1);
+    background-color: red;
     background-image: unset;
   }
-
-  @include row-to-col(xs-only);
 }
 ```
 
@@ -180,29 +176,6 @@ div {
 }
 ```
 
-### Align horizontally and vertically
-
-```html
-<ul class="list">
-  <li>1</li>
-  <li>2</li>
-</ul>
-```
-
-```scss
-.list {
-  @include items-center;
-}
-/* or */
-.list {
-  @include justify-center;
-}
-/* or */
-.list {
-  @include flex-center;
-}
-```
-
 ### Square box
 
 ```html
@@ -212,7 +185,7 @@ div {
 ```scss
 .square {
   @include square(100px);
-  background-color: map-get($colors, safety);
+  background-color: green;
 }
 ```
 
@@ -247,7 +220,7 @@ div {
   margin-top: 10px;
 }
 .box-clearfix {
-  background-color: map-get($colors, warning);
+  background-color: yellow;
   @include margin-recover;
 }
 ```
@@ -299,45 +272,9 @@ div {
 }
 ```
 
-### Shorthand positioning
-
-```html
-<div class="loading-container">
-  <div class="loading">loading...</div>
-</div>
-```
-
-```scss
-.loading-container {
-  width: 100px;
-  height: 100px;
-  border: 1px solid red;
-  position: relative;
-}
-.loading {
-  /* Center the contents and fill the parent container */
-  @include position-content-center;
-  /* Centering */
-  @include position-center;
-  /* Full container */
-  @include position-full;
-}
-```
-
 ### Use of variables and methods
 
 ```scss
-@debug map-get($colors, white);
-@debug map-get($colors, black);
-@debug map-get($colors, safety);
-@debug map-get($colors, warning);
-@debug map-get($colors, danger);
-@debug map-get($colors, danger-lighten-1);
-@debug map-get($colors, danger-l-1);
-@debug map-get($colors, danger-darken-3);
-@debug map-get($colors, danger-d-3);
-@debug map-get($breakpoints, sm);
-@debug map-get($breakpoints-spec, xs-only);
 @debug toLighten(red, 10%);
 @debug toLighten(#123456, 10%);
 @debug toDarken(red, 10%);
@@ -352,16 +289,6 @@ div {
 ## Default theme
 
 ```scss
-// Color
-$color-count: 3; // Maximum 10, number of generated color levels
-$colors: (
-  "white": #ffffff,
-  "black": #000000,
-  "safety": #67c23a,
-  "warning": #e6a23c,
-  "danger": #f56c6c,
-);
-
 // Break point
 $breakpoints: (
   "sm": 768px,
@@ -369,19 +296,21 @@ $breakpoints: (
   "lg": 1240px,
   "xl": 1920px,
 );
-
 $breakpoints-spec: (
-  "xs-only": max-width(map.get($breakpoints, sm)),
-  "sm-and-up": min-width(map.get($breakpoints, sm)),
-  "sm-only": only-width(map.get($breakpoints, sm), map.get($breakpoints, md)),
-  "sm-and-down": max-width(map.get($breakpoints, md)),
-  "md-and-up": min-width(map.get($breakpoints, md)),
-  "md-only": only-width(map.get($breakpoints, md), map.get($breakpoints, lg)),
-  "md-and-down": max-width(map.get($breakpoints, lg)),
-  "lg-and-up": min-width(map.get($breakpoints, lg)),
-  "lg-only": only-width(map.get($breakpoints, lg), map.get($breakpoints, xl)),
-  "lg-and-down": max-width(map.get($breakpoints, xl)),
-  "xl-only": min-width(map.get($breakpoints, xl)),
+  "xs-only": "(max-width: #{map.get($breakpoints, sm)})",
+  "sm-and-up": "(min-width: #{map.get($breakpoints, sm)})",
+  "sm-only":
+    "(min-width: #{$map.get($breakpoints, sm)}) and (max-width: #{map.get($breakpoints, md) - 1})",
+  "sm-and-down": "(max-width: #{map.get($breakpoints, md)})",
+  "md-and-up": "(min-width: #{map.get($breakpoints, md)})",
+  "md-only":
+    "(min-width: #{$map.get($breakpoints, md)}) and (max-width: #{map.get($breakpoints, lg) - 1})",
+  "md-and-down": "(max-width: #{map.get($breakpoints, lg)})",
+  "lg-and-up": "(min-width: #{map.get($breakpoints, lg)})",
+  "lg-only":
+    "(min-width: #{$map.get($breakpoints, lg)}) and (max-width: #{map.get($breakpoints, xl) - 1})",
+  "lg-and-down": "(max-width: #{map.get($breakpoints, xl)})",
+  "xl-only": "(min-width: #{map.get($breakpoints, xl)})",
 );
 
 // Rem base
@@ -393,13 +322,8 @@ $rem-unit-base: 16px;
 
 ```scss
 @forward "sass-runtime-tool/all.scss" with (
-  // Maximum 10
-  // Generate [name]-lighten-1 ~ [name]-lighten-10 and [name]-darken-1 ~ [name]-darken-10
-  $color-count: 10,
-  $colors: (primary: blue, safety: green),
   // Custom reactive breakpoints
-  $breakpoints: ("mi": 480px, "sm": 640px),
-  $breakpoints-spec: ("micro-only": max-width(map-get($breakpoints, mi))),
+  $breakpoints: ("sm": 640px),
   // Rem base
   $rem-base: 5 // [20 => 4rem, 10 => 2rem]
 );
