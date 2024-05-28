@@ -12,30 +12,6 @@
   }
 }
 
-@function unitless-to-rem($value) {
-  @if meta.type-of($value) != "number" {
-    @return $value;
-  }
-  @if math.is-unitless($value) {
-    @return rem($value);
-  } @else {
-    @return $value;
-  }
-}
-
-@function values($values) {
-  @if meta.type-of($values) == "list" {
-    $_values: ();
-    @each $v in $values {
-      $_values: list.append($_values, unitless-to-rem($v));
-    }
-    @return $_values;
-  } @else if meta.type-of($values) == "number" {
-    @return unitless-to-rem($values);
-  }
-  @return $values;
-}
-
 @function toLighten($color, $lighten) {
   @return scale-color(
     $color,
@@ -52,22 +28,4 @@
     $green: -$lighten,
     $blue: -$lighten
   );
-}
-
-@function min-width($size) {
-  @return "(min-width: #{$size})";
-}
-
-@function max-width($size) {
-  @return "(max-width: #{$size - 1})";
-}
-
-@function only-width($min, $max) {
-  @if ($min == null) {
-    @return max-width($max);
-  } @else if ($max == null) {
-    @return min-width($max);
-  } @else {
-    @return "(min-width: #{$min}) and (max-width: #{$max - 1})";
-  }
 }

@@ -12,12 +12,10 @@ Sass is a lightweight, safe and pollution-free runtime tool set that simplifies 
 **Feature**
 
 - Responsive layout
-- Manage unified breakpoint
 - Unocss consistent rem conversion
 - Make triangle
 - Placeholder style changes
 - Multiline text ellipses
-- Square box
 - Clear float
 - Clear margin collapsing
 - Remove the arrow to the right of <input type="number" />
@@ -173,19 +171,6 @@ div {
 .ellipsis-2 {
   width: 100px;
   @include ellipsis;
-}
-```
-
-### Square box
-
-```html
-<div class="square"></div>
-```
-
-```scss
-.square {
-  @include square(100px);
-  background-color: green;
 }
 ```
 

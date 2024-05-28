@@ -2,9 +2,6 @@
   <h1>响应式 media</h1>
   <div class="box"></div>
   <hr />
-  <h1>正方形盒子</h1>
-  <div class="square"></div>
-  <hr />
   <h1>input 标签修改 placeholder 样式</h1>
   <input class="input" placeholder="Please enter content" />
   <hr />
@@ -31,7 +28,15 @@
   <h1>删除 number 输入框右侧小三角</h1>
   <input type="number" />
   <hr />
+  <h1>渐变色的 border</h1>
+  <div class="gradient-box"></div>
 </template>
+
+<style lang="scss">
+#app {
+  padding: 20px 0;
+}
+</style>
 
 <style lang="scss" scoped>
 // media
@@ -57,12 +62,6 @@
     background-color: toDarken(orange, 50%);
     background-image: unset;
   }
-}
-
-// square
-.square {
-  @include square(100px);
-  background-color: toDarken(rgb(148, 148, 64), 10%);
 }
 
 // placeholder
@@ -113,5 +112,14 @@
 // hide-arrow
 :where(input[type="number"]) {
   @include hide-arrow;
+}
+
+// gradient-border
+.gradient-box {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  background: white;
+  @include gradient-border(linear-gradient(270deg, black 0%, white 100%), 1px);
 }
 </style>

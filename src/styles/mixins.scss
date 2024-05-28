@@ -22,66 +22,6 @@
   }
 }
 
-@mixin items-center($gap: null) {
-  $_gap: verify.valid_numbers($gap, true);
-
-  display: flex;
-  align-items: center;
-  @if $_gap {
-    gap: functions.values($_gap);
-  }
-}
-
-@mixin justify-center($gap: null) {
-  $_gap: verify.valid_numbers($gap, true);
-
-  display: flex;
-  justify-content: center;
-  @if $_gap {
-    gap: functions.values($_gap);
-  }
-}
-
-@mixin flex-center($gap: null) {
-  $_gap: verify.valid_numbers($gap, true);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @if $_gap {
-    gap: functions.values($_gap);
-  }
-}
-
-@mixin position-full($position: absolute) {
-  $_position: verify.valid_position($position);
-
-  @if $_position {
-    position: #{$_position};
-    inset: 0;
-  }
-}
-
-@mixin position-center($position: absolute) {
-  $_position: verify.valid_position($position);
-
-  @if $_position {
-    position: #{$_position};
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@mixin square($width: null) {
-  $_width: verify.valid_number($width, true);
-
-  @if $_width {
-    width: functions.unitless-to-rem($_width);
-  }
-  aspect-ratio: 1/1;
-}
-
 @mixin ellipsis($col: null) {
   $_col: verify.valid_number($col, true);
 
@@ -183,4 +123,30 @@
   }
 }
 
-// @mixin
+@mixin gradient-border($gradient-color, $border-width: 1px) {
+  position: relative;
+  z-index: 1;
+  &::before {
+    width: inherit;
+    height: inherit;
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background: $gradient-color;
+    border-radius: inherit;
+  }
+  &::after {
+    width: inherit;
+    height: inherit;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    background-clip: content-box;
+    padding: $border-width;
+    box-sizing: border-box;
+  }
+}

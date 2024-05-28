@@ -12,12 +12,10 @@ Sass 轻量安全无污染运行时工具集，简化 css 编写，不增加代�
 **功能特点**
 
 - 响应式布局
-- 管理统一的 breakpoint
 - unocss 一致的 rem 转化
 - 小三角
 - placeholder 样式更改
 - 多行文本省略号
-- 正方形盒子
 - 清除浮动
 - 删除 margin 折叠
 - 去除 <input type="number" /> 右边的箭头
@@ -172,19 +170,6 @@ div {
 .ellipsis-2 {
   width: 100px;
   @include ellipsis;
-}
-```
-
-### 正方形
-
-```html
-<div class="square"></div>
-```
-
-```scss
-.square {
-  @include square(100px);
-  background-color: red;
 }
 ```
 
