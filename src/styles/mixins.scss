@@ -48,12 +48,12 @@
     clip-path: polygon(0 50%, 100% 0, 100% 100%);
   } @else if $_direction == "top" {
     width: $_width * 2;
-    height: $_width * 2;
-    clip-path: polygon(0 75%, 50% 25%, 100% 75%);
+    height: $_width;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
   } @else if $_direction == "bottom" {
     width: $_width * 2;
-    height: $_width * 2;
-    clip-path: polygon(0 25%, 50% 75%, 100% 25%);
+    height: $_width;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
   } @else {
     // default right
     width: $_width;

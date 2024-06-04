@@ -7,7 +7,10 @@
   <hr />
   <h1>制作小三角</h1>
   <div style="display: flex; align-items: center; gap: 4px">
-    <div class="triangle"></div>
+    <div class="triangle-left"></div>
+    <div class="triangle-right"></div>
+    <div class="triangle-top"></div>
+    <div class="triangle-bottom"></div>
     <span>小三角</span>
   </div>
   <hr />
@@ -78,15 +81,17 @@
 }
 
 // triangle
-.triangle {
-  &::before {
-    content: "";
-    display: inline-block;
-    @include triangle($color: pink);
-  }
+.triangle-left {
+  @include triangle(left);
 }
-.triangle-2 {
-  @include triangle("bottom", 6px, blue);
+.triangle-right {
+  @include triangle($color: pink);
+}
+.triangle-top {
+  @include triangle(top, 5px, blue);
+}
+.triangle-bottom {
+  @include triangle(bottom, 5px, green);
 }
 
 // ellipsis
